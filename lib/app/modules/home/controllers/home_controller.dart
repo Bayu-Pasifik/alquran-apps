@@ -5,6 +5,8 @@ import 'package:my_alquran/app/data/models/surah.dart';
 import 'package:http/http.dart' as http;
 
 class HomeController extends GetxController {
+  // ! buat ambil value dark theme
+  Rx<bool> isDark = false.obs;
   // ! Buat fungsi / function untuk mengambil data surah
   Future<List<Surah>> getAllSurah() async {
     //! Ambil data dari API

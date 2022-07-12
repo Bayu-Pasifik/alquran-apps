@@ -10,10 +10,13 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
+    if (controller.isDark.value == "true") {
+      controller.isDark.value = true;
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text('Halaman Home'),
-        backgroundColor: appNormalPurple,
+        title: Text('Alquran Apps'),
+        backgroundColor: Get.isDarkMode ? appWhite : appNormalPurple,
         centerTitle: true,
         actions: [
           IconButton(
@@ -33,9 +36,9 @@ class HomeView extends GetView<HomeController> {
               Text(
                 "Assalamualaikum",
                 style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: appNormalPurple),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -62,7 +65,7 @@ class HomeView extends GetView<HomeController> {
                               right: -40,
                               bottom: -50,
                               child: Container(
-                                width: 240,
+                                  width: 240,
                                   child: Opacity(
                                     opacity: 0.5,
                                     child: Image.asset(
@@ -125,21 +128,17 @@ class HomeView extends GetView<HomeController> {
               SizedBox(
                 height: 20,
               ),
-              TabBar(
-                  labelColor: appDarkPurple,
-                  indicatorColor: appNormalPurple,
-                  unselectedLabelColor: appGrey,
-                  tabs: [
-                    Tab(
-                      text: "Surah",
-                    ),
-                    Tab(
-                      text: "Juz",
-                    ),
-                    Tab(
-                      text: "Bookmark",
-                    ),
-                  ]),
+              TabBar(tabs: [
+                Tab(
+                  text: "Surah",
+                ),
+                Tab(
+                  text: "Juz",
+                ),
+                Tab(
+                  text: "Bookmark",
+                ),
+              ]),
               Expanded(
                 child: TabBarView(children: [
                   FutureBuilder<List<Surah>>(
@@ -164,8 +163,20 @@ class HomeView extends GetView<HomeController> {
                                 Get.toNamed(Routes.DETAIL_SURAH,
                                     arguments: surah);
                               },
-                              leading:
-                                  CircleAvatar(child: Text("${surah.number}")),
+                              leading: Obx(
+                                () => Container(
+                                    width: 35,
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: AssetImage(controller
+                                                    .isDark.isTrue
+                                                ? "assets/images/border_light.png"
+                                                : "assets/images/border_dark.png"),
+                                            fit: BoxFit.cover)),
+                                    child: Center(
+                                        child: Text(surah.number.toString()))),
+                              ),
                               title: Text(
                                   "${surah.name?.transliteration!.id ?? "Error...."}"),
                               subtitle: Text(
@@ -185,6 +196,18 @@ class HomeView extends GetView<HomeController> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          controller.isDark.isTrue
+              ? Get.changeTheme(themeLight)
+              : Get.changeTheme(themeDark);
+          controller.isDark.toggle();
+        },
+        child: Obx(() => Icon(
+              Icons.color_lens,
+              color: controller.isDark.isTrue ? appDarkPurple : appWhite,
+            )),
       ),
     );
   }

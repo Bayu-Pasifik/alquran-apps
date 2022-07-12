@@ -8,17 +8,39 @@ const appGrey = Color(0XFFB9A2D8);
 const appOrange = Color(0XFFE6704A);
 
 ThemeData themeLight = ThemeData(
-    primaryColor: appNormalPurple,
-    scaffoldBackgroundColor: Colors.white,
-    appBarTheme: AppBarTheme(backgroundColor: appNormalPurple),
-    textTheme: TextTheme(
-        bodyText1: TextStyle(color: appDarkPurple),
-        bodyText2: TextStyle(color: appDarkPurple)));
+  brightness: Brightness.light,
+  primaryColor: appNormalPurple,
+  scaffoldBackgroundColor: Colors.white,
+  appBarTheme: AppBarTheme(backgroundColor: appNormalPurple),
+  textTheme: TextTheme(
+      bodyText1: TextStyle(color: appDarkPurple),
+      bodyText2: TextStyle(color: appDarkPurple)),
+  listTileTheme: ListTileThemeData(textColor: appDarkPurple),
+  tabBarTheme: TabBarTheme(
+      labelColor: appDarkPurple,
+      unselectedLabelColor: appGrey,
+      indicator: BoxDecoration(
+          border: Border(bottom: BorderSide(color: appDarkPurple, width: 2)))),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: appNormalPurple,
+  ),
+);
 
 ThemeData themeDark = ThemeData(
-    primaryColor: appLightPurple,
-    scaffoldBackgroundColor: appDarkPurple,
-    appBarTheme: AppBarTheme(backgroundColor: appNormalPurple),
-    textTheme: TextTheme(
-        bodyText1: TextStyle(color: appWhite),
-        bodyText2: TextStyle(color: appWhite)));
+  brightness: Brightness.dark,
+  primaryColor: appLightPurple,
+  scaffoldBackgroundColor: appDarkPurple,
+  appBarTheme: AppBarTheme(backgroundColor: appNormalPurple),
+  textTheme: TextTheme(
+      bodyText1: TextStyle(color: appWhite),
+      bodyText2: TextStyle(color: appWhite)),
+  listTileTheme: ListTileThemeData(textColor: appWhite),
+  tabBarTheme: TabBarTheme(
+      labelColor: appWhite,
+      unselectedLabelColor: appGrey,
+      indicator: BoxDecoration(
+          border: Border(bottom: BorderSide(color: appWhite, width: 2)))),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: appWhite,
+  ),
+);

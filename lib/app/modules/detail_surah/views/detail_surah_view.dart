@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_alquran/app/data/models/detail_surah.dart' as detail;
 import 'package:my_alquran/app/data/models/surah.dart';
+import 'package:my_alquran/app/constant/color.dart';
 
 import '../controllers/detail_surah_controller.dart';
 
@@ -27,8 +28,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     padding: const EdgeInsets.only(top: 10),
                     child: Text(
                       surah.name!.transliteration!.id?.toUpperCase() ?? 'null',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Get.isDarkMode ? appWhite : appNormalPurple),
                     ),
                   ),
                   SizedBox(
@@ -36,7 +39,9 @@ class DetailSurahView extends GetView<DetailSurahController> {
                   ),
                   Text(
                     '( ${surah.name!.translation!.id} )',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Get.isDarkMode ? appWhite : appNormalPurple),
                   ),
                   SizedBox(
                     height: 10,
@@ -45,7 +50,9 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       ' ${surah.numberOfVerses} Ayat | ${surah.revelation!.id}',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Get.isDarkMode ? appWhite : appNormalPurple),
                     ),
                   ),
                 ],
@@ -90,9 +97,18 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    CircleAvatar(
-                                      child: Text('${index + 1}'),
-                                    ),
+                                    Container(
+                                        width: 35,
+                                        height: 35,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage(Get.isDarkMode
+                                                    ? "assets/images/border_light.png"
+                                                    : "assets/images/border_dark.png"),
+                                                fit: BoxFit.cover)),
+                                        child: Center(
+                                          child: Text('${index + 1}'),
+                                        )),
                                     Row(
                                       children: [
                                         IconButton(
