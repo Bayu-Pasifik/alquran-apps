@@ -20,43 +20,80 @@ class DetailSurahView extends GetView<DetailSurahController> {
       body: ListView(
         padding: EdgeInsets.all(20),
         children: [
-          Card(
-              margin: EdgeInsets.only(top: 20),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Text(
-                      surah.name!.transliteration!.id?.toUpperCase() ?? 'null',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Get.isDarkMode ? appWhite : appNormalPurple),
+          GestureDetector(
+            onTap: () {
+              Get.dialog(Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Get.isDarkMode
+                        ? appGrey
+                        : appLightPurple.withOpacity(0.3),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        " Tafsir ${surah.name?.transliteration?.id ?? "Error...."}",
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "${surah.tafsir!.id ?? "error...."}",
+                        style: TextStyle(
+                            color: Get.isDarkMode ? appWhite : appLightPurple),
+                      ),
+                    ],
+                  ),
+                ),
+              ));
+            },
+            child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(colors: [
+                      appDarkPurple,
+                      appLightPurple,
+                    ])),
+                margin: EdgeInsets.only(top: 20),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        surah.name!.transliteration!.id?.toUpperCase() ??
+                            'null',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: appWhite),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '( ${surah.name!.translation!.id} )',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Get.isDarkMode ? appWhite : appNormalPurple),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Text(
-                      ' ${surah.numberOfVerses} Ayat | ${surah.revelation!.id}',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Get.isDarkMode ? appWhite : appNormalPurple),
+                    SizedBox(
+                      height: 10,
                     ),
-                  ),
-                ],
-              )),
+                    Text(
+                      '( ${surah.name!.translation!.id} )',
+                      style: TextStyle(fontSize: 16, color: appWhite),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        ' ${surah.numberOfVerses} Ayat | ${surah.revelation!.id}',
+                        style: TextStyle(fontSize: 16, color: appWhite),
+                      ),
+                    ),
+                  ],
+                )),
+          ),
           SizedBox(
             height: 20,
           ),
@@ -89,7 +126,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                           SizedBox(
                             height: 20,
                           ),
-                          Card(
+                          Container(
+                            decoration: BoxDecoration(
+                                color: appGrey,
+                                borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
