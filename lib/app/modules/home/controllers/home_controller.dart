@@ -8,6 +8,8 @@ import 'package:http/http.dart' as http;
 class HomeController extends GetxController {
   // ! buat ambil value dark theme
   Rx<bool> isDark = false.obs;
+  // ! buat menampung list surah
+  List<Surah> allSurah = [];
   // ! Buat fungsi / function untuk mengambil data surah
   Future<List<Surah>> getAllSurah() async {
     //! Ambil data dari API
@@ -19,7 +21,8 @@ class HomeController extends GetxController {
     if (data == null || data.isEmpty) {
       return [];
     } else {
-      return data.map((e) => Surah.fromJson(e)).toList();
+      allSurah = data.map((e) => Surah.fromJson(e)).toList();
+      return allSurah;
     }
   }
 

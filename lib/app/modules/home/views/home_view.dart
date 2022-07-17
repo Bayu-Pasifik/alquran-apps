@@ -207,10 +207,39 @@ class HomeView extends GetView<HomeController> {
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               juz.Juz detailJuz = snapshot.data![index];
+                              // !compare awal dan akhir surah yg ada di juz dengan juz yg di pilih
+                              // ! pisahkan antara nama surah dengan nomor ayatnya
+                              String starName =
+                                  detailJuz.juzStartInfo?.split(" - ").first ??
+                                      "";
+                              String endName =
+                                  detailJuz.juzEndInfo?.split(" - ").first ??
+                                      "";
+                              // ! buat penampung surah yg dipilih sehingga nanti nya datanya dapat di passing
+                              List<Surah> surahList = [];
+                              // ! buat penampung sementara syrah nya / raw data yg akan dibandingkan
+                              List<Surah> tempSurahList = [];
+                              // ! cek apakah akhir surat ada atau tidak kalau ada break
+                              for (Surah item in controller.allSurah) {
+                                tempSurahList.add(item);
+                                if (item.name?.transliteration?.id == endName) {
+                                  break;
+                                }
+                              }
+                              for (Surah item
+                                  in tempSurahList.reversed.toList()) {
+                                surahList.add(item);
+                                if (item.name?.transliteration?.id ==
+                                    starName) {
+                                  break;
+                                }
+                              }
                               return ListTile(
                                 onTap: () {
-                                  Get.toNamed(Routes.DETAIL_JUZ,
-                                      arguments: detailJuz);
+                                  Get.toNamed(Routes.DETAIL_JUZ, arguments: {
+                                    "juz": detailJuz,
+                                    "surahList": surahList.reversed.toList()
+                                  });
                                 },
                                 leading: Obx(
                                   () => Container(

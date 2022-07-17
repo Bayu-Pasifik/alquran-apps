@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:my_alquran/app/constant/color.dart';
 import 'package:my_alquran/app/data/models/juz.dart' as juz;
+import 'package:my_alquran/app/data/models/surah.dart';
 
 import '../controllers/detail_juz_controller.dart';
 
 class DetailJuzView extends GetView<DetailJuzController> {
-  final juz.Juz detailJuz = Get.arguments;
+  final juz.Juz detailJuz = Get.arguments["juz"];
+  final List<Surah> surahInThisJus = Get.arguments["surahList"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
