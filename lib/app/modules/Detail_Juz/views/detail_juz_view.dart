@@ -12,6 +12,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
   final List<Surah> surahInThisJus = Get.arguments["surahList"];
   @override
   Widget build(BuildContext context) {
+    // print(surahInThisJus[controller.index].name?.transliteration?.id);
     return Scaffold(
         appBar: AppBar(
           title: Text('Juz ${detailJuz.juz}'),
@@ -34,7 +35,93 @@ class DetailJuzView extends GetView<DetailJuzController> {
               }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
+                // mainAxisSize: MainAxisSize.min,
                 children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (ayat.number?.inSurah == 1)
+                        GestureDetector(
+                          onTap: () {
+                            Get.dialog(Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Container(
+                                padding: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Get.isDarkMode
+                                      ? appGrey
+                                      : appLightPurple.withOpacity(0.3),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      " Tafsir ${ayat.translation?.id?.toUpperCase() ?? "Error...."}",
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      "${ayat.tafsir!.id ?? "error...."}",
+                                      style: TextStyle(
+                                          color: Get.isDarkMode
+                                              ? appWhite
+                                              : appLightPurple),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ));
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  gradient: LinearGradient(colors: [
+                                    appDarkPurple,
+                                    appLightPurple,
+                                  ])),
+                              margin: EdgeInsets.only(top: 20),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      '${surahInThisJus[controller.index].name?.transliteration?.id ?? "Error...."}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          color: appWhite),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    '${surahInThisJus[controller.index].name?.translation?.id}',
+                                    style: TextStyle(
+                                        fontSize: 16, color: appWhite),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Text(
+                                      '${surahInThisJus[controller.index].numberOfVerses} Ayat',
+                                      style: TextStyle(
+                                          fontSize: 16, color: appWhite),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        ),
+                    ],
+                  ),
                   SizedBox(
                     height: 20,
                   ),

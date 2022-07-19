@@ -12,7 +12,7 @@ void main() {
       darkTheme: themeDark,
       debugShowCheckedModeBanner: false,
       title: "Alquran Apps",
-      initialRoute: Routes.HOME,
+      initialRoute: Routes.INTRODUCTION,
       getPages: AppPages.routes,
     ),
   );
