@@ -190,7 +190,7 @@ class DetailSurahView extends GetView<DetailSurahController> {
                           ),
                           Text(
                             '${ayat?.translation?.id}',
-                            textAlign: TextAlign.justify,
+                            textAlign: TextAlign.left,
                             style: TextStyle(
                               fontSize: 15,
                             ),
