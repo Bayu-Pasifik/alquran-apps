@@ -44,9 +44,14 @@ class HomeController extends GetxController {
 
   // ! fungsi untuk ganti tema yang sudah disimpan di local storage
   void changeTheme() {
-    isDark.isTrue ? Get.changeTheme(themeLight) : Get.changeTheme(themeDark);
-    isDark.toggle();
     final box = GetStorage();
-    box.write("themeDark", true);
+
+    if (isDark == true) {
+      box.write("themeDark", true);
+    } else {
+      box.remove("themeDark");
+    }
+
+    isDark.toggle();
   }
 }
