@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:my_alquran/app/constant/color.dart';
 import 'package:my_alquran/app/data/models/juz.dart';
 import 'package:my_alquran/app/data/models/surah.dart';
 import 'package:http/http.dart' as http;
@@ -38,5 +40,13 @@ class HomeController extends GetxController {
       allJuz.add(juz);
     }
     return allJuz;
+  }
+
+  // ! fungsi untuk ganti tema yang sudah disimpan di local storage
+  void changeTheme() {
+    isDark.isTrue ? Get.changeTheme(themeLight) : Get.changeTheme(themeDark);
+    isDark.toggle();
+    final box = GetStorage();
+    box.write("themeDark", true);
   }
 }

@@ -39,8 +39,8 @@ class DetailJuzView extends GetView<DetailJuzController> {
               if (controller.index == surahInThisJus.length) {
                 controller.index = (controller.index - surahInThisJus.length);
               }
-              if (surahInThisJus.length < controller.index) {
-                controller.index = 0;
+              if (surahInThisJus.length > 2) {
+                controller.index - 1;
               }
             }
 
