@@ -21,7 +21,7 @@ class DetailJuzView extends GetView<DetailJuzController> {
         ),
         body: ListView.builder(
           padding: EdgeInsets.all(20),
-          itemCount: detailJuz.verses?.length ?? 0,
+          itemCount: detailJuz.totalVerses ?? 0,
           itemBuilder: (context, index) {
             print("index dari listview " + index.toString());
             if (detailJuz.verses == null || detailJuz.verses?.length == 0) {
@@ -30,21 +30,21 @@ class DetailJuzView extends GetView<DetailJuzController> {
               );
             }
             juz.Verses ayat = detailJuz.verses![index];
+            Surah surah = surahInThisJus[controller.index];
 
             if (index != 0) {
-              // controller.index + 1;
               if (ayat.number?.inSurah == 1) {
-                controller.index = controller.index + 1;
-              }
-              if (controller.index == surahInThisJus.length) {
-                controller.index = (controller.index - surahInThisJus.length);
-              }
-              if (surahInThisJus.length > 2) {
-                controller.index - 1;
+                controller.index++;
+                if (controller.index == surahInThisJus.length) {
+                  controller.index = (controller.index - surahInThisJus.length);
+                }
+                if (controller.index >= 2) {
+                  controller.index - 1;
+                }
               }
             }
 
-            Surah surah = surahInThisJus[controller.index];
+            // Surah surah = surahInThisJus[controller.index];
             print("index dari controller " + controller.index.toString());
             print(surah.name?.transliteration?.id);
 
@@ -52,86 +52,86 @@ class DetailJuzView extends GetView<DetailJuzController> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                if (ayat.number?.inSurah == 1)
-                  GestureDetector(
-                    onTap: () {
-                      Get.dialog(Dialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Get.isDarkMode
-                                ? appGrey
-                                : appLightPurple.withOpacity(0.3),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                " Tafsir ${surah.name?.transliteration?.id ?? "Error...."}",
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text(
-                                "${surah.tafsir?.id ?? "error...."}",
-                                style: TextStyle(
-                                    color: Get.isDarkMode
-                                        ? appWhite
-                                        : appLightPurple),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ));
-                    },
-                    child: Container(
-                        width: Get.width,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: LinearGradient(colors: [
-                              appDarkPurple,
-                              appLightPurple,
-                            ])),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Text(
-                                '${surah.name?.transliteration?.id ?? "Error...."}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                    color: appWhite),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              '${surah.name?.translation?.id ?? "Error...."}',
-                              style: TextStyle(fontSize: 16, color: appWhite),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: (Center(
-                                child: Text(
-                                  '${surah.numberOfVerses} Ayat',
-                                  style:
-                                      TextStyle(fontSize: 16, color: appWhite),
-                                ),
-                              )),
-                            ),
-                          ],
-                        )),
-                  ),
+                // if (ayat.number?.inSurah == 1)
+                //   GestureDetector(
+                //     onTap: () {
+                //       Get.dialog(Dialog(
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(10),
+                //         ),
+                //         child: Container(
+                //           padding: EdgeInsets.all(20),
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(10),
+                //             color: Get.isDarkMode
+                //                 ? appGrey
+                //                 : appLightPurple.withOpacity(0.3),
+                //           ),
+                //           child: Column(
+                //             mainAxisSize: MainAxisSize.min,
+                //             children: [
+                //               Text(
+                //                 " Tafsir ${surah.name?.transliteration?.id ?? "Error...."}",
+                //               ),
+                //               SizedBox(
+                //                 height: 20,
+                //               ),
+                //               Text(
+                //                 "${surah.tafsir?.id ?? "error...."}",
+                //                 style: TextStyle(
+                //                     color: Get.isDarkMode
+                //                         ? appWhite
+                //                         : appLightPurple),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       ));
+                //     },
+                //     child: Container(
+                //         width: Get.width,
+                //         decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(20),
+                //             gradient: LinearGradient(colors: [
+                //               appDarkPurple,
+                //               appLightPurple,
+                //             ])),
+                //         child: Column(
+                //           mainAxisSize: MainAxisSize.min,
+                //           children: [
+                //             Padding(
+                //               padding: const EdgeInsets.only(top: 10),
+                //               child: Text(
+                //                 '${surah.name?.transliteration?.id ?? "Error...."}',
+                //                 style: TextStyle(
+                //                     fontWeight: FontWeight.bold,
+                //                     fontSize: 20,
+                //                     color: appWhite),
+                //               ),
+                //             ),
+                //             SizedBox(
+                //               height: 10,
+                //             ),
+                //             Text(
+                //               '${surah.name?.translation?.id ?? "Error...."}',
+                //               style: TextStyle(fontSize: 16, color: appWhite),
+                //             ),
+                //             SizedBox(
+                //               height: 10,
+                //             ),
+                //             Padding(
+                //               padding: const EdgeInsets.only(bottom: 10),
+                //               child: (Center(
+                //                 child: Text(
+                //                   '${surah.numberOfVerses} Ayat',
+                //                   style:
+                //                       TextStyle(fontSize: 16, color: appWhite),
+                //                 ),
+                //               )),
+                //             ),
+                //           ],
+                //         )),
+                //   ),
                 SizedBox(
                   height: 20,
                 ),

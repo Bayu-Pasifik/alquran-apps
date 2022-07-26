@@ -15,7 +15,7 @@ class HomeController extends GetxController {
   // ! Buat fungsi / function untuk mengambil data surah
   Future<List<Surah>> getAllSurah() async {
     //! Ambil data dari API
-    Uri url = Uri.parse('https://api.quran.sutanlab.id/surah');
+    Uri url = Uri.parse('https://al-quran-xi.vercel.app/surah');
     var res = await http.get(url);
     //! Masukkan data ke dalam variable
     List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
@@ -32,7 +32,7 @@ class HomeController extends GetxController {
   Future<List<Juz>> getAllJuz() async {
     List<Juz> allJuz = [];
     for (int i = 1; i <= 30; i++) {
-      Uri url = Uri.parse('https://api.quran.sutanlab.id/juz/$i');
+      Uri url = Uri.parse('https://al-quran-xi.vercel.app/juz/$i');
       var res = await http.get(url);
       Map<String, dynamic> data =
           (json.decode(res.body) as Map<String, dynamic>)["data"];
