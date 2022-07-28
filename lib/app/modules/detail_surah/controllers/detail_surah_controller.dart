@@ -8,8 +8,7 @@ import 'package:just_audio/just_audio.dart';
 class DetailSurahController extends GetxController {
   // ! variable untuk deklarasi class AudioPlayer
   final player = AudioPlayer();
-  // ! variable untuk deklarasi observasi dynamic play | pause | stop button
-  RxString audioStatus = 'stop'.obs;
+
   // ! Buat fungsi / function untuk mengambil data surah
   Future<DetailSurah> getDetailSurah(String id) async {
     //! Ambil data dari API
@@ -23,14 +22,16 @@ class DetailSurahController extends GetxController {
   }
 
   // ! Buat fungsi / function untuk memainkan audio
-  void playAudio(String? url) async {
-    if (url != null) {
+  void playAudio(Verse ayat) async {
+    if (ayat.audio?.primary != null) {
       try {
         await player.stop();
-        await player.setUrl(url);
-        audioStatus.value = 'playing';
+        await player.setUrl(ayat.audio!.primary ?? ayat.audio!.secondary![0]);
+        ayat.audioStatus = 'playing';
+        update();
         await player.play();
-        audioStatus.value = 'stop';
+        ayat.audioStatus = 'stop';
+        update();
         await player.stop();
       } on PlayerException catch (e) {
         Get.defaultDialog(
@@ -78,10 +79,11 @@ class DetailSurahController extends GetxController {
   }
 
   // ! Buat fungsi / function untuk mempause audio
-  void pauseAudio() async {
+  void pauseAudio(Verse? ayat) async {
     try {
       await player.pause();
-      audioStatus.value = 'pause';
+      ayat!.audioStatus = 'pause';
+      update();
     } on PlayerException catch (e) {
       Get.defaultDialog(
         title: 'Terjadi kesalahan',
@@ -122,11 +124,13 @@ class DetailSurahController extends GetxController {
   }
 
   // ! Buat fungsi / function untuk meresume audio
-  void resumeAudio() async {
+  void resumeAudio(Verse? ayat) async {
     try {
-      audioStatus.value = 'playing';
+      ayat!.audioStatus = 'playing';
+      update();
       await player.play();
-      audioStatus.value = 'stop';
+      ayat.audioStatus = 'stop';
+      update();
     } on PlayerException catch (e) {
       Get.defaultDialog(
         title: 'Terjadi kesalahan',
@@ -167,10 +171,11 @@ class DetailSurahController extends GetxController {
   }
 
   // ! Buat fungsi / function untuk meresume audio
-  void stopAudio() async {
+  void stopAudio(Verse? ayat) async {
     try {
       await player.stop();
-      audioStatus.value = 'stop';
+      ayat!.audioStatus = 'stop';
+      update();
     } on PlayerException catch (e) {
       Get.defaultDialog(
         title: 'Terjadi kesalahan',
