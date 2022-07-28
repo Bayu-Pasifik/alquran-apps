@@ -6,7 +6,10 @@ import 'dart:convert';
 import 'package:just_audio/just_audio.dart';
 
 class DetailSurahController extends GetxController {
+  // ! variable untuk deklarasi class AudioPlayer
   final player = AudioPlayer();
+  // ! variable untuk deklarasi observasi dynamic play | pause | stop button
+  RxString audioStatus = 'stop'.obs;
   // ! Buat fungsi / function untuk mengambil data surah
   Future<DetailSurah> getDetailSurah(String id) async {
     //! Ambil data dari API
@@ -20,25 +23,29 @@ class DetailSurahController extends GetxController {
   }
 
   // ! Buat fungsi / function untuk memainkan audio
-  playAudio(String? url) async {
+  void playAudio(String? url) async {
     if (url != null) {
       try {
+        await player.stop();
         await player.setUrl(url);
+        audioStatus.value = 'playing';
         await player.play();
+        audioStatus.value = 'stop';
+        await player.stop();
       } on PlayerException catch (e) {
         Get.defaultDialog(
-          title: 'Error',
+          title: 'Terjadi kesalahan',
           middleText: e.message.toString(),
         );
         print("Error code: ${e.code}");
         Get.defaultDialog(
-          title: 'Error',
+          title: 'Terjadi kesalahan',
           middleText: e.message.toString(),
         );
         print("Error message: ${e.message}");
       } on PlayerInterruptedException catch (e) {
         Get.defaultDialog(
-          title: 'Error',
+          title: 'Terjadi kesalahan',
           middleText: e.message.toString(),
         );
         print("Connection aborted: ${e.message}");
@@ -46,7 +53,7 @@ class DetailSurahController extends GetxController {
         // Fallback for all other errors
         print('An error occured: $e');
         Get.defaultDialog(
-          title: 'Error',
+          title: 'Terjadi Kesalahan',
           middleText: e.toString(),
         );
       }
@@ -61,7 +68,145 @@ class DetailSurahController extends GetxController {
           print('An error occurred: $e');
         }
       });
+    } else {
+      Get.defaultDialog(
+        title: 'Error',
+        middleText: 'Audio tidak ditemukan',
+      );
     }
+    // Catching errors at load time
+  }
+
+  // ! Buat fungsi / function untuk mempause audio
+  void pauseAudio() async {
+    try {
+      await player.pause();
+      audioStatus.value = 'pause';
+    } on PlayerException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Error code: ${e.code}");
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Error message: ${e.message}");
+    } on PlayerInterruptedException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Connection aborted: ${e.message}");
+    } catch (e) {
+      // Fallback for all other errors
+      print('An error occured: $e');
+      Get.defaultDialog(
+        title: 'Terjadi Kesalahan',
+        middleText: e.toString(),
+      );
+    }
+
+// Catching errors during playback (e.g. lost network connection)
+    player.playbackEventStream.listen((event) {},
+        onError: (Object e, StackTrace st) {
+      if (e is PlayerException) {
+        print('Error code: ${e.code}');
+        print('Error message: ${e.message}');
+      } else {
+        print('An error occurred: $e');
+      }
+    });
+    // Catching errors at load time
+  }
+
+  // ! Buat fungsi / function untuk meresume audio
+  void resumeAudio() async {
+    try {
+      audioStatus.value = 'playing';
+      await player.play();
+      audioStatus.value = 'stop';
+    } on PlayerException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Error code: ${e.code}");
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Error message: ${e.message}");
+    } on PlayerInterruptedException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Connection aborted: ${e.message}");
+    } catch (e) {
+      // Fallback for all other errors
+      print('An error occured: $e');
+      Get.defaultDialog(
+        title: 'Terjadi Kesalahan',
+        middleText: e.toString(),
+      );
+    }
+
+// Catching errors during playback (e.g. lost network connection)
+    player.playbackEventStream.listen((event) {},
+        onError: (Object e, StackTrace st) {
+      if (e is PlayerException) {
+        print('Error code: ${e.code}');
+        print('Error message: ${e.message}');
+      } else {
+        print('An error occurred: $e');
+      }
+    });
+    // Catching errors at load time
+  }
+
+  // ! Buat fungsi / function untuk meresume audio
+  void stopAudio() async {
+    try {
+      await player.stop();
+      audioStatus.value = 'stop';
+    } on PlayerException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Error code: ${e.code}");
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Error message: ${e.message}");
+    } on PlayerInterruptedException catch (e) {
+      Get.defaultDialog(
+        title: 'Terjadi kesalahan',
+        middleText: e.message.toString(),
+      );
+      print("Connection aborted: ${e.message}");
+    } catch (e) {
+      // Fallback for all other errors
+      print('An error occured: $e');
+      Get.defaultDialog(
+        title: 'Terjadi Kesalahan',
+        middleText: e.toString(),
+      );
+    }
+
+// Catching errors during playback (e.g. lost network connection)
+    player.playbackEventStream.listen((event) {},
+        onError: (Object e, StackTrace st) {
+      if (e is PlayerException) {
+        print('Error code: ${e.code}');
+        print('Error message: ${e.message}');
+      } else {
+        print('An error occurred: $e');
+      }
+    });
     // Catching errors at load time
   }
 
