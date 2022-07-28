@@ -9,6 +9,9 @@ class DetailSurahController extends GetxController {
   // ! variable untuk deklarasi class AudioPlayer
   final player = AudioPlayer();
 
+  // ! variable untuk kondisi last verse agar nanti nya tombol play/pause bisa kembali ke keaddan semula
+  Verse? lastVerse;
+
   // ! Buat fungsi / function untuk mengambil data surah
   Future<DetailSurah> getDetailSurah(String id) async {
     //! Ambil data dari API
@@ -22,12 +25,21 @@ class DetailSurahController extends GetxController {
   }
 
   // ! Buat fungsi / function untuk memainkan audio
-  void playAudio(Verse ayat) async {
-    if (ayat.audio?.primary != null) {
+  void playAudio(Verse? ayat) async {
+    if (ayat?.audio?.primary != null) {
       try {
+        if (lastVerse == null) {
+          lastVerse = ayat;
+        }
+        // ! jika ada ayat nya maka status nya akan diubah menjadi stop
+        lastVerse!.audioStatus = "stop";
+        // ! last verse di isi ayat berikut nya
+        lastVerse = ayat;
+        lastVerse!.audioStatus = "stop";
+        update();
         await player.stop();
-        await player.setUrl(ayat.audio!.primary ?? ayat.audio!.secondary![0]);
-        ayat.audioStatus = 'playing';
+        await player.setUrl(ayat?.audio?.primary ?? "");
+        ayat!.audioStatus = 'playing';
         update();
         await player.play();
         ayat.audioStatus = 'stop';
