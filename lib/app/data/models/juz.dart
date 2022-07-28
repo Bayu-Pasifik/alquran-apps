@@ -1,4 +1,4 @@
-// ! api url 
+// ! api url
 // https://api.quran.sutanlab.id/juz/1
 
 class Juz {
@@ -56,6 +56,7 @@ class Verses {
   Translation? translation;
   Audio? audio;
   Tafsir? tafsir;
+  String? audioStatus = "stop";
 
   Verses(
       {this.number,
@@ -63,7 +64,8 @@ class Verses {
       this.text,
       this.translation,
       this.audio,
-      this.tafsir});
+      this.tafsir,
+      this.audioStatus});
 
   Verses.fromJson(Map<String, dynamic> json) {
     number =
@@ -98,6 +100,9 @@ class Verses {
     if (this.tafsir != null) {
       data['tafsir'] = this.tafsir!.toJson();
     }
+    // if (this.audioStatus != null) {
+    //   data['audioStatus'] = this.audioStatus!.toJson();
+    // }
     return data;
   }
 }
@@ -289,6 +294,22 @@ class Id {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['short'] = this.short;
     data['long'] = this.long;
+    return data;
+  }
+}
+
+class AudioStatus {
+  String? audioStatus = "Stop";
+
+  AudioStatus({this.audioStatus});
+
+  AudioStatus.fromJson(Map<String, dynamic> json) {
+    audioStatus = json['audioStatus'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['audioStatus'] = this.audioStatus;
     return data;
   }
 }
