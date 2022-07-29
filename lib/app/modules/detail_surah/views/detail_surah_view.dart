@@ -160,7 +160,13 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                               "Pilih jenis Bookmark",
                                                           actions: [
                                                             ElevatedButton(
-                                                              onPressed: () {},
+                                                              onPressed: () {
+                                                                c.bookMark(
+                                                                    true,
+                                                                    ayat!,
+                                                                    snapshot
+                                                                        .data!,index);
+                                                              },
                                                               child: Text(
                                                                   "Last Read"),
                                                               style: ElevatedButton
@@ -169,7 +175,13 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                                                           appNormalPurple),
                                                             ),
                                                             ElevatedButton(
-                                                              onPressed: () {},
+                                                              onPressed: () {
+                                                                c.bookMark(
+                                                                    false,
+                                                                    ayat!,
+                                                                    snapshot
+                                                                        .data!,index);
+                                                              },
                                                               child: Text(
                                                                   "Bookmark"),
                                                               style: ElevatedButton
