@@ -153,7 +153,32 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                         builder: ((c) => Row(
                                               children: [
                                                 IconButton(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Get.defaultDialog(
+                                                          title: "Bookmark",
+                                                          middleText:
+                                                              "Pilih jenis Bookmark",
+                                                          actions: [
+                                                            ElevatedButton(
+                                                              onPressed: () {},
+                                                              child: Text(
+                                                                  "Last Read"),
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      primary:
+                                                                          appNormalPurple),
+                                                            ),
+                                                            ElevatedButton(
+                                                              onPressed: () {},
+                                                              child: Text(
+                                                                  "Bookmark"),
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      primary:
+                                                                          appNormalPurple),
+                                                            ),
+                                                          ]);
+                                                    },
                                                     icon: Icon(Icons
                                                         .bookmark_add_outlined)),
                                                 (ayat?.audioStatus == 'stop')
