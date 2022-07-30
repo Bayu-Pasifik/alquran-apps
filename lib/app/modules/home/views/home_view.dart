@@ -291,7 +291,7 @@ class HomeView extends GetView<HomeController> {
                           }
                           if (snapshot.data?.length == 0) {
                             return Center(
-                              child: Text("Data Kosong"),
+                              child: Text("Belum ada bookmark"),
                             );
                           }
                           return ListView.builder(
@@ -304,7 +304,9 @@ class HomeView extends GetView<HomeController> {
                                 },
                                 leading:
                                     CircleAvatar(child: Text("${index + 1}")),
-                                title: Text(data["surah"]),
+                                title: Text(data["surah"]
+                                    .toString()
+                                    .replaceAll("+", "'")),
                                 subtitle: Text(
                                     " Ayat : ${data["ayat"]} | Juz : ${data["juz"]}| Via : ${data["via"]}"),
                               );
