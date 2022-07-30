@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_alquran/app/data/models/db/bookmark.dart';
 import 'package:my_alquran/app/data/models/juz.dart';
 import 'package:my_alquran/app/data/models/surah.dart';
 import 'package:http/http.dart' as http;
+import 'package:sqflite/sqflite.dart';
 
 class HomeController extends GetxController {
   // ! buat ambil value dark theme
@@ -52,5 +54,15 @@ class HomeController extends GetxController {
     }
 
     isDark.toggle();
+  }
+
+  // ! inisialisasi Database
+  DatabaseManager database = DatabaseManager.instance;
+  // ! buat fungsi untuk menampilkan bokmark surah
+  Future<List<Map<String, dynamic>>> getAllBookmark() async {
+    Database db = await database.db;
+    List<Map<String, dynamic>> allBookmark =
+        await db.query("bookmark", where: "last_read = 0");
+    return allBookmark;
   }
 }

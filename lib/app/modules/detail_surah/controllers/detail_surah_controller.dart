@@ -29,7 +29,7 @@ class DetailSurahController extends GetxController {
     } else {
       List checkData = await db.query("bookmark",
           where:
-              "surah = '${surah.name!.transliteration!.id}' and ayat = ${ayat.number!.inSurah} and juz = ${ayat.meta!.juz} and via = 'surah' and index_ayat = ${indexAyat} and last_read = 0");
+              'surah = "${surah.name!.transliteration!.id}" and ayat = ${ayat.number!.inSurah} and juz = ${ayat.meta!.juz} and via = "surah" and index_ayat = ${indexAyat} and last_read = 0');
       if (checkData.length > 0) {
         flagExist = true;
       }
@@ -45,11 +45,12 @@ class DetailSurahController extends GetxController {
         "last_read": lastRead == true ? 1 : 0
       });
       Get.back(); // untuk menutup dialog nya
-      Get.snackbar("success", "Berhasil menambahkan data ke bookmark",
+      Get.snackbar("Berhasil", "Berhasil menambahkan data ke bookmark",
           colorText: appWhite);
     } else {
       Get.back();
-      Get.snackbar("failed", "Ayat sudah ada di bookmark", colorText: appWhite);
+      Get.snackbar("Terjadi Kesalahan", "Ayat sudah ada di bookmark",
+          colorText: appWhite);
     }
     var data = await db.query("bookmark");
     print(data);

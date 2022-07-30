@@ -278,7 +278,42 @@ class HomeView extends GetView<HomeController> {
                         }
                       },
                       future: controller.getAllJuz()),
-                  Center(child: Text("Page bookmark")),
+                  GetBuilder<HomeController>(
+                    builder: (c) {
+                      return FutureBuilder<List<Map<String, dynamic>>>(
+                        future: c.getAllBookmark(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (snapshot.data?.length == 0) {
+                            return Center(
+                              child: Text("Data Kosong"),
+                            );
+                          }
+                          return ListView.builder(
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              Map<String, dynamic> data = snapshot.data![index];
+                              return ListTile(
+                                onTap: () {
+                                  print(data);
+                                },
+                                leading:
+                                    CircleAvatar(child: Text("${index + 1}")),
+                                title: Text(data["surah"]),
+                                subtitle: Text(
+                                    " Ayat : ${data["ayat"]} | Juz : ${data["juz"]}| Via : ${data["via"]}"),
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  )
                 ]),
               )
             ],
