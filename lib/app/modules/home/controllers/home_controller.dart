@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:my_alquran/app/constant/color.dart';
 import 'package:my_alquran/app/data/models/db/bookmark.dart';
 import 'package:my_alquran/app/data/models/juz.dart';
 import 'package:my_alquran/app/data/models/surah.dart';
@@ -52,7 +53,7 @@ class HomeController extends GetxController {
     } else {
       box.remove("themeDark");
     }
-
+    print(isDark);
     isDark.toggle();
   }
 
@@ -64,5 +65,14 @@ class HomeController extends GetxController {
     List<Map<String, dynamic>> allBookmark =
         await db.query("bookmark", where: "last_read = 0");
     return allBookmark;
+  }
+
+  // ! buat fungsi untuk menghapus bokmark juz
+  void deleteBookmark(int id) async {
+    Database db = await database.db;
+    db.delete("bookmark", where: "id = $id");
+    update();
+    Get.snackbar("Berhasil", "Berhasil Menghapus Bookmark",
+        colorText: appWhite);
   }
 }

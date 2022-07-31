@@ -302,13 +302,31 @@ class HomeView extends GetView<HomeController> {
                                 onTap: () {
                                   print(data);
                                 },
-                                leading:
-                                    CircleAvatar(child: Text("${index + 1}")),
+                                leading: Obx(
+                                  () => Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(controller
+                                                      .isDark.isTrue
+                                                  ? "assets/images/border_light.png"
+                                                  : "assets/images/border_dark.png"),
+                                              fit: BoxFit.cover)),
+                                      child:
+                                          Center(child: Text("${index + 1}"))),
+                                ),
+                                // leading: Text("${index + 1}"),
                                 title: Text(data["surah"]
                                     .toString()
                                     .replaceAll("+", "'")),
                                 subtitle: Text(
-                                    " Ayat : ${data["ayat"]} | Juz : ${data["juz"]}| Via : ${data["via"]}"),
+                                    " Ayat : ${data["ayat"]} | Via : ${data["via"]}"),
+                                trailing: IconButton(
+                                    onPressed: () {
+                                      c.deleteBookmark(data['id']);
+                                    },
+                                    icon: Icon(Icons.delete_forever)),
                               );
                             },
                           );

@@ -186,63 +186,44 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                       onPressed: () {},
                                       icon: Icon(Icons.bookmark_add_outlined)),
                                   GetBuilder<DetailJuzController>(
-                                      builder: ((c) => Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {},
-                                                  icon: Icon(Icons
-                                                      .bookmark_add_outlined)),
-                                              (ayat.audioStatus == 'stop')
-                                                  ? IconButton(
-                                                      onPressed: () {
-                                                        controller
-                                                            .playAudio(ayat);
-                                                      },
-                                                      icon: Icon(
-                                                          Icons.play_arrow))
-                                                  : Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        (ayat.audioStatus ==
-                                                                'playing')
-                                                            ? IconButton(
-                                                                onPressed: () {
-                                                                  controller
-                                                                      .pauseAudio(
-                                                                          ayat);
-                                                                },
-                                                                icon: Icon(Icons
-                                                                    .pause),
-                                                              )
-                                                            : IconButton(
-                                                                onPressed: (() {
-                                                                  controller
-                                                                      .resumeAudio(
-                                                                          ayat);
-                                                                }),
-                                                                icon: Icon(Icons
-                                                                    .play_arrow),
-                                                              ),
-                                                        IconButton(
-                                                          onPressed: () {
-                                                            controller
-                                                                .stopAudio(
-                                                                    ayat);
-                                                          },
-                                                          icon:
-                                                              Icon(Icons.stop),
-                                                        )
-                                                      ],
-                                                    )
-                                            ],
-                                          )))
+                                      builder: ((c) => (ayat.audioStatus ==
+                                              'stop')
+                                          ? IconButton(
+                                              onPressed: () {
+                                                controller.playAudio(ayat);
+                                              },
+                                              icon: Icon(Icons.play_arrow))
+                                          : Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                (ayat.audioStatus == 'playing')
+                                                    ? IconButton(
+                                                        onPressed: () {
+                                                          controller
+                                                              .pauseAudio(ayat);
+                                                        },
+                                                        icon: Icon(Icons.pause),
+                                                      )
+                                                    : IconButton(
+                                                        onPressed: (() {
+                                                          controller
+                                                              .resumeAudio(
+                                                                  ayat);
+                                                        }),
+                                                        icon: Icon(
+                                                            Icons.play_arrow),
+                                                      ),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    controller.stopAudio(ayat);
+                                                  },
+                                                  icon: Icon(Icons.stop),
+                                                )
+                                              ],
+                                            )))
                                 ],
                               ),
                             ]),
