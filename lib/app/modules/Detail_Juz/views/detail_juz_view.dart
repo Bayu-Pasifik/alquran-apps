@@ -10,7 +10,6 @@ import '../controllers/detail_juz_controller.dart';
 
 class DetailJuzView extends GetView<DetailJuzController> {
   final juz.Juz detailJuz = Get.arguments["juz"];
-  // final juz.Verses detailAudio = Get.arguments["juz"];
   final List<Surah> surahInThisJus = Get.arguments["surahList"];
 
   /* int number = 0; */
@@ -180,51 +179,79 @@ class DetailJuzView extends GetView<DetailJuzController> {
                                   // ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.bookmark_add_outlined)),
-                                  GetBuilder<DetailJuzController>(
-                                      builder: ((c) => (ayat.audioStatus ==
-                                              'stop')
-                                          ? IconButton(
-                                              onPressed: () {
-                                                controller.playAudio(ayat);
-                                              },
-                                              icon: Icon(Icons.play_arrow))
-                                          : Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                (ayat.audioStatus == 'playing')
-                                                    ? IconButton(
-                                                        onPressed: () {
-                                                          controller
-                                                              .pauseAudio(ayat);
-                                                        },
-                                                        icon: Icon(Icons.pause),
-                                                      )
-                                                    : IconButton(
-                                                        onPressed: (() {
-                                                          controller
-                                                              .resumeAudio(
-                                                                  ayat);
-                                                        }),
-                                                        icon: Icon(
-                                                            Icons.play_arrow),
-                                                      ),
-                                                IconButton(
+                              GetBuilder<DetailJuzController>(
+                                builder: (c) => Row(
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          Get.defaultDialog(
+                                              title: "Bookmark",
+                                              middleText:
+                                                  "Pilih jenis Bookmark",
+                                              actions: [
+                                                ElevatedButton(
                                                   onPressed: () {
-                                                    controller.stopAudio(ayat);
+                                                    c.bookMark(true, ayat,
+                                                        surah, index);
                                                   },
-                                                  icon: Icon(Icons.stop),
-                                                )
-                                              ],
-                                            )))
-                                ],
+                                                  child: Text("Last Read"),
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          primary:
+                                                              appNormalPurple),
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    c.bookMark(false, ayat,
+                                                        surah, index);
+                                                  },
+                                                  child: Text("Bookmark"),
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          primary:
+                                                              appNormalPurple),
+                                                ),
+                                              ]);
+                                        },
+                                        icon:
+                                            Icon(Icons.bookmark_add_outlined)),
+                                    (ayat.audioStatus == 'stop')
+                                        ? IconButton(
+                                            onPressed: () {
+                                              controller.playAudio(ayat);
+                                            },
+                                            icon: Icon(Icons.play_arrow))
+                                        : Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              (ayat.audioStatus == 'playing')
+                                                  ? IconButton(
+                                                      onPressed: () {
+                                                        controller
+                                                            .pauseAudio(ayat);
+                                                      },
+                                                      icon: Icon(Icons.pause),
+                                                    )
+                                                  : IconButton(
+                                                      onPressed: (() {
+                                                        controller
+                                                            .resumeAudio(ayat);
+                                                      }),
+                                                      icon: Icon(
+                                                          Icons.play_arrow),
+                                                    ),
+                                              IconButton(
+                                                onPressed: () {
+                                                  controller.stopAudio(ayat);
+                                                },
+                                                icon: Icon(Icons.stop),
+                                              )
+                                            ],
+                                          )
+                                  ],
+                                ),
                               ),
                             ]),
                       ),

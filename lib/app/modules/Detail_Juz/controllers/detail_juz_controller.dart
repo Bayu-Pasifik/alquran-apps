@@ -1,7 +1,12 @@
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:my_alquran/app/constant/color.dart';
+import 'package:my_alquran/app/data/models/db/bookmark.dart';
+import 'package:my_alquran/app/data/models/detail_surah.dart';
 
 import 'package:my_alquran/app/data/models/juz.dart';
+import 'package:my_alquran/app/data/models/surah.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DetailJuzController extends GetxController {
   int index = 0;
@@ -213,6 +218,46 @@ class DetailJuzController extends GetxController {
       }
     });
     // Catching errors at load time
+  }
+
+  DatabaseManager database = DatabaseManager.instance;
+  // ! fungsi untuk menambahkan menambahkan bookmark ke database local
+  void bookMark(bool lastRead, Verses ayat, Surah surah, int indexAyat) async {
+    Database db = await database.db;
+    bool flagExist = false;
+
+    // ! cek apakah ayat ini termasuk last read / bukan
+    if (lastRead == true) {
+      await db.delete("bookmark", where: "last_read = 1");
+    } else {
+      List checkData = await db.query("bookmark",
+          columns: ["surah, ayat, juz, via, index_ayat, last_read"],
+          where:
+              "surah = '${surah.name!.transliteration!.id!.replaceAll("'", "+")}' and ayat = ${ayat.number!.inSurah} and juz = ${ayat.meta!.juz} and via = 'juz' and index_ayat = ${indexAyat} and last_read = 0");
+      if (checkData.length > 0) {
+        flagExist = true;
+      }
+    }
+
+    if (flagExist == false) {
+      await db.insert("bookmark", {
+        "surah": "${surah.name!.transliteration!.id}".replaceAll("'", "+"),
+        "ayat": ayat.number!.inSurah,
+        "juz": ayat.meta!.juz,
+        "via": "juz",
+        "index_ayat": indexAyat,
+        "last_read": lastRead == true ? 1 : 0
+      });
+      Get.back(); // untuk menutup dialog nya
+      Get.snackbar("Berhasil", "Berhasil menambahkan data ke bookmark",
+          colorText: appWhite);
+    } else {
+      Get.back();
+      Get.snackbar("Terjadi Kesalahan", "Ayat sudah ada di bookmark",
+          colorText: appWhite);
+    }
+    var data = await db.query("bookmark");
+    print(data);
   }
 
   @override
