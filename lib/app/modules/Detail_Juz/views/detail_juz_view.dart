@@ -40,9 +40,13 @@ class DetailJuzView extends GetView<DetailJuzController> {
 
                 //  detail.Verse? ayat = snapshot.data?.verses?[index];
                 //FIXME: membuat card yg menampilkan semua surah pada juz tertentu
+<<<<<<< HEAD
                 Surah surah = surahInThisJus[controller.index];
 
                 if (ayat.number?.inSurah == 1) {
+=======
+                if (index != 0) if (ayat.number?.inSurah == 1) {
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
                   controller.index++;
                   if (controller.index == surahInThisJus.length) {
                     controller.index =
@@ -52,6 +56,10 @@ class DetailJuzView extends GetView<DetailJuzController> {
                     controller.index - 1;
                   }
                 }
+<<<<<<< HEAD
+=======
+                Surah surah = surahInThisJus[controller.index];
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
 
                 // Surah surah = surahInThisJus[controller.index];
                 // print("index dari controller " + controller.index.toString());

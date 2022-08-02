@@ -11,7 +11,11 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     if (controller.isDark.value == "true") {
+=======
+    if (controller.isDark.isTrue == true) {
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
       controller.isDark.value = true;
     }
     return Scaffold(
@@ -172,8 +176,13 @@ class HomeView extends GetView<HomeController> {
                                         image: DecorationImage(
                                             image: AssetImage(controller
                                                     .isDark.isTrue
+<<<<<<< HEAD
                                                 ? "assets/images/border_light.png"
                                                 : "assets/images/border_dark.png"),
+=======
+                                                ? "assets/images/border_dark.png"
+                                                : "assets/images/border_light.png"),
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
                                             fit: BoxFit.cover)),
                                     child: Center(
                                         child: Text(surah.number.toString()))),

@@ -8,6 +8,10 @@
 .buildlog/
 .history
 .svn/
+<<<<<<< HEAD
+=======
+migrate_working_dir/
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
 
 # IntelliJ related
 *.iml

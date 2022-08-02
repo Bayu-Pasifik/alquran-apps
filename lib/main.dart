@@ -10,7 +10,12 @@ void main() async {
   final box = GetStorage();
   runApp(
     GetMaterialApp(
+<<<<<<< HEAD
       theme: box.read("themeDark") == null ? themeLight : themeDark,
+=======
+      theme: box.read("themeDark") == true ? themeDark : themeLight,
+      darkTheme: themeDark,
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
       debugShowCheckedModeBanner: false,
       title: "Alquran Apps",
       initialRoute: Routes.INTRODUCTION,

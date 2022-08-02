@@ -47,14 +47,25 @@ class HomeController extends GetxController {
   // ! fungsi untuk ganti tema yang sudah disimpan di local storage
   void changeTheme() {
     final box = GetStorage();
+<<<<<<< HEAD
 
     if (isDark == true) {
+=======
+    // isDark.toggle();
+    if (isDark.isTrue) {
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
       box.write("themeDark", true);
     } else {
       box.remove("themeDark");
     }
+<<<<<<< HEAD
     print(isDark);
     isDark.toggle();
+=======
+    isDark.toggle();
+    print("value is dark : " + isDark.value.toString());
+    print(box.changes);
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
   }
 
   // ! inisialisasi Database

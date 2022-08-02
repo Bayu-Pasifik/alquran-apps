@@ -2,10 +2,17 @@ name: my_alquran
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
+<<<<<<< HEAD
 environment: 
   sdk: '>=2.16.2 <3.0.0'
 
 dependencies: 
+=======
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+
+dependencies:
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
   cupertino_icons: ^1.0.2
   get: 4.6.5
   http: 0.13.4
@@ -14,6 +21,7 @@ dependencies:
   just_audio: 0.9.28
   sqflite: 2.0.3
   path_provider: 2.0.11
+<<<<<<< HEAD
   flutter: 
     sdk: flutter
 
@@ -28,3 +36,18 @@ flutter:
     - assets/images/
   uses-material-design: true
 
+=======
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/lottie/
+    - assets/images/
+  uses-material-design: true
+>>>>>>> 9a7bb91 (upgrade to flutter 3.0.5)
